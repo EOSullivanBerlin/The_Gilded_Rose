@@ -53,4 +53,5 @@ class GildedRose
       end
     end
   end
+  
 end

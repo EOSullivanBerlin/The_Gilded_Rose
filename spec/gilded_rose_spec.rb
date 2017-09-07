@@ -74,9 +74,58 @@ describe GildedRose do
       end
     end
 
-    describe 'exceptional item "Sulfuras, Hand of Ragnaros"' do
-      
+    describe 'exceptional item Sulfuras, Hand of Ragnaros' do
+      it "Sulfuras, being a legendary item, never has to be sold or decreases in Quality" do
+        items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 48)]
+        gildedr = GildedRose.new(items)
+        gildedr.update_quality()
+        expect(items[0].quality).to eq 48
+        expect(items[0].sell_in).to eq 10
+        gildedr.update_quality()
+        expect(items[0].quality).to eq 48
+        expect(items[0].sell_in).to eq 10
+      end
     end
+  end
+
+  describe 'exceptional item Backstage passes' do
+    it "Backstage passes, like aged brie, increases in Quality as its Sell_In value approaches" do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 12, 10)]
+      gildedr = GildedRose.new(items)
+      gildedr.update_quality()
+      expect(items[0].quality).to eq 11
+    end
+
+    it "Quality increases by 2 when there are 10 days or less " do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 10)]
+      gildedr = GildedRose.new(items)
+      gildedr.update_quality()
+      expect(items[0].quality).to eq 12
+    end
+
+    it "increases by 3 when there are 5 days or less" do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 10)]
+      gildedr = GildedRose.new(items)
+      gildedr.update_quality()
+      expect(items[0].quality).to eq 13
+    end
+
+    it "increases by 3 when there are 5 days or less" do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 10)]
+      gildedr = GildedRose.new(items)
+      gildedr.update_quality()
+      expect(items[0].quality).to eq 13
+    end
+
+    it "Quality drops to 0 after the concert" do
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 10)]
+      gildedr = GildedRose.new(items)
+      gildedr.update_quality()
+      expect(items[0].quality).to eq 0
+    end
+  end
+
+  describe "" do
 
   end
 
