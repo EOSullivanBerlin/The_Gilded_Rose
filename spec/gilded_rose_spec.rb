@@ -125,8 +125,41 @@ describe GildedRose do
     end
   end
 
-  describe "" do
-
+  describe "#daily_quality_value_decrease" do
+    it "reduces the values for sell_in for every item by 1" do
+      items = [Item.new("foo", 10, 10)]
+      gildedr = GildedRose.new(items)
+      gildedr.daily_quality_value_decrease(items[0])
+      expect(items[0].quality).to eq 9
+    end
   end
+
+  describe "#daily_sell_in_value_decrease" do
+    it "reduces the values for quality for every item by 1" do
+      items = [Item.new("foo", 10, 10)]
+      gildedr = GildedRose.new(items)
+      gildedr.daily_sell_in_value_decrease(items[0])
+      expect(items[0].sell_in).to eq 9
+    end
+  end
+
+  describe "#post_sell_in_quality_decrease" do
+    it "reduces the values for quality by 2 for every day" do
+      items = [Item.new("foo", 0, 10)]
+      gildedr = GildedRose.new(items)
+      gildedr.post_sell_in_quality_decrease(items[0])
+      expect(items[0].quality).to eq 8
+    end
+  end
+
+  describe "#Daily increses in quality" do
+    it "increses the values of quality by 1 every day" do
+      items = [Item.new("Aged Brie", 2, 10)]
+      gildedr = GildedRose.new(items)
+      gildedr.daily_quality_value_increses(items[0])
+      expect(items[0].quality).to eq 11
+    end
+  end
+
 
 end
