@@ -47,9 +47,9 @@ class GildedRose
         item.sell_in <= 0 ? post_sell_in_quality_increses(item) : daily_quality_value_increses(item)
         end
         daily_sell_in_value_decrease(item)
-        p "#{item.sell_in} #{item.name} #{item.quality}"
       return
       end
+
 
       if item.name == @exceptional_item_classes[1]
         treble_quality_increses(item) if item.sell_in <= 5 && item.sell_in >= 0
@@ -65,12 +65,15 @@ class GildedRose
         return
       end
 
-      if item.name != @exceptional_item_classes[0..3]
+      if item.name == @exceptional_item_classes[3]
+        post_sell_in_quality_decrease(item)
+        item.quality = 0 if item.sell_in <= 0 && item.quality > 0
+        return
+      end
+
       daily_quality_value_decrease(item)  if item.sell_in > 0 && item.quality > 0
       post_sell_in_quality_decrease(item)  if item.sell_in <= 0 && item.quality > 0
       daily_sell_in_value_decrease(item)
-      return
-      end
 
     end
   end

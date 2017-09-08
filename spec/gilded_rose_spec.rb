@@ -161,5 +161,14 @@ describe GildedRose do
     end
   end
 
+  describe '#Conjured item' do
+    it 'decreses in quality twice as fast' do
+      items = [Item.new("Conjured", 10, 10)]
+      gildedr = GildedRose.new(items)
+      gildedr.update_quality()
+      expect(items[0].quality).to eq 8
+    end
+  end
+
 
 end
